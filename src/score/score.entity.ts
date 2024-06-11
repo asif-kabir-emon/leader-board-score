@@ -1,5 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { User } from '../user/user.entity';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
 export class Score {
@@ -7,8 +6,8 @@ export class Score {
   id: number;
 
   @Column()
-  value: number;
+  name: string;
 
-  @ManyToOne(() => User, user => user.scores)
-  user: User;
+  @Column()
+  score: number;
 }

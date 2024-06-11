@@ -1,5 +1,4 @@
-import { Controller, Get, Post, Body, UseGuards, Req } from '@nestjs/common';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { Controller, Get, Post, Body, Req } from '@nestjs/common';
 import { ScoreService } from './score.service';
 import { Request } from 'express';
 
@@ -7,11 +6,12 @@ import { Request } from 'express';
 export class ScoreController {
   constructor(private readonly scoreService: ScoreService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Post()
-  async create(@Req() req: Request, @Body() body: { value: number }) {
-    const user = req.user as any;
-    return this.scoreService.createScore(user.id, body.value);
+  async create(
+    @Req() req: Request,
+    @Body() body: { name: string; score: number },
+  ) {
+    return this.scoreService.createScore(body.name, body.score);
   }
 
   @Get('leaderboard')
